@@ -2,3 +2,12 @@ name: CustomMobs
 version: '${project.version}'
 main: me.histal.custommobs.CustomMobs
 api-version: 1.19
+author: histal1
+
+commands:
+  custommobs:
+    description: CustomMobs main command
+
+
+
+
