@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 
-public class ConfigFile {
+public class ConfigYmlFile {
 
     File file;
     FileConfiguration configuration;
@@ -18,15 +18,15 @@ public class ConfigFile {
     String name;
     String folder;
 
-    public ConfigFile(String name, boolean createDefault) {
+    public ConfigYmlFile(String name, boolean createDefault) {
         this("", name,createDefault);
     }
 
-    public ConfigFile(String folder, String name, boolean createDefault) {
+    public ConfigYmlFile(String folder, String name, boolean createDefault) {
         this(CustomMobs.getInstance(), folder, name, createDefault);
     }
 
-    public ConfigFile(CustomMobs plugin,String folder, String name,boolean createDefault) {
+    public ConfigYmlFile(CustomMobs plugin, String folder, String name, boolean createDefault) {
         this.plugin = plugin;
         this.folder = folder;
         this.name = name;
@@ -44,11 +44,7 @@ public class ConfigFile {
 
     public void createNewFile(){
         if(!this.exists()) {
-            try{
-                this.file.createNewFile();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            plugin.saveResource(this.name + ".yml", false);
         }
     }
 
@@ -56,12 +52,14 @@ public class ConfigFile {
         this.configuration = YamlConfiguration.loadConfiguration(this.file);
     }
 
-    public void save() {
+    public boolean save() {
         try {
             this.configuration.save(this.file);
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     public void asyncSave() {

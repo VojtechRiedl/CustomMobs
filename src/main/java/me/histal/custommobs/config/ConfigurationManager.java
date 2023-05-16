@@ -8,7 +8,7 @@ public class ConfigurationManager {
 
     private CustomMobs plugin;
 
-    HashMap<String,ConfigFile> configFiles;
+    HashMap<String, ConfigYmlFile> configFiles;
 
     public ConfigurationManager() {
         this.plugin = CustomMobs.getInstance();
@@ -18,16 +18,22 @@ public class ConfigurationManager {
     public void loadData() {
         configFiles = new HashMap<>();
 
-        configFiles.put("custom-mobs", new ConfigFile("custom-mobs", true));
+        if(!plugin.getDataFolder().exists()) {
+            plugin.getDataFolder().mkdir();
+            plugin.saveDefaultConfig();
+        }
+
+        ConfigYmlFile customMobsFile = new ConfigYmlFile("custom-mobs", true);
+        configFiles.put("custom-mobs", customMobsFile);
     }
 
     public void reload() {
-        configFiles.values().forEach(ConfigFile::reload);
+        configFiles.values().forEach(ConfigYmlFile::reload);
         plugin.getUserManager().loadData();
         plugin.getMobsManager().loadData();
     }
 
-    public ConfigFile getConfigFile(String name) {
+    public ConfigYmlFile getConfigFile(String name) {
         return configFiles.get(name);
     }
 }
