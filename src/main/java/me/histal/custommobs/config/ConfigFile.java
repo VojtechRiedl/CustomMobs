@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 
 public class ConfigFile {
 
@@ -33,6 +34,8 @@ public class ConfigFile {
         if(createDefault) {
             createNewFile();
         }
+        plugin.getLogger().log(Level.INFO, "Loaded " + this.name + ".yml");
+
     }
 
     public boolean exists() {
