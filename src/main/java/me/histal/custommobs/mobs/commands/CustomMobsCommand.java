@@ -29,14 +29,9 @@ public class CustomMobsCommand implements TabExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(!(sender instanceof Player)) {
-            sender.sendMessage("You must be a player to use this command.");
-            return true;
-        }
-        Player player = (Player) sender;
 
         if(args.length == 0) {
-            player.sendMessage("§aUsage §8-> §e/custommobs add");
+            sender.sendMessage("§cUsage: /custommobs <add|reload>");
             return true;
         }
 
@@ -51,7 +46,6 @@ public class CustomMobsCommand implements TabExecutor {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-
         if(args.length == 1){
             return subCommands.stream().map(SubCommand::getName).collect(Collectors.toList());
         }
