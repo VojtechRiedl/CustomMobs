@@ -15,6 +15,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EntityEquipment;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import java.util.ArrayList;
@@ -227,7 +228,11 @@ public class MobsManager {
         if(equipment == null) {
             return;
         }
-        equipment.setItemInMainHand(customMobWithItem.getDropAsItem());
+        ItemStack drop = customMobWithItem.getDropAsItem();
+        if(drop == null){
+            return;
+        }
+        equipment.setItemInMainHand(drop);
     }
 
     /**
