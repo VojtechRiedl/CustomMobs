@@ -8,7 +8,6 @@ import me.histal.custommobs.mobs.MobBuilder;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 
@@ -54,13 +53,14 @@ public class MobController {
         }
         CustomMobWithItem mobWithItem = (CustomMobWithItem) mob;
 
+        drops.removeIf(item -> item.getType().equals(mobWithItem.getMobDrop().getMaterial()));
+
         if(Utils.calculateChance(mobWithItem.getMobDrop().getDropChance())){
             if(!drops.contains(mobWithItem.getDropAsItem())){
                 drops.add(mobWithItem.getDropAsItem());
             }
-            return true;
+            return false;
         };
-        drops.remove(mobWithItem.getDropAsItem());
         return true;
     }
     public boolean hasKiller(LivingEntity entity){

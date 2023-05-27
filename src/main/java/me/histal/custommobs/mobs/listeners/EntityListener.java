@@ -48,7 +48,7 @@ public class EntityListener implements Listener {
             return;
         }
 
-        plugin.getMobsManager().updateMob(e.getEntity());
+        plugin.getMobsManager().spawnMob(e.getEntity());
 
     }
 

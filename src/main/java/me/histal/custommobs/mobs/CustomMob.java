@@ -33,4 +33,15 @@ public class CustomMob {
         return health;
     }
 
+    public void setHealth(double health) {
+        this.health = health;
+    }
+
+    public void setEntityType(EntityType entityType) {
+        this.entityType = entityType;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

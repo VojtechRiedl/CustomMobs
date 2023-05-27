@@ -5,8 +5,12 @@ import me.histal.custommobs.config.ConfigYmlFile;
 import me.histal.custommobs.mobs.commands.CustomMobsCommand;
 import me.histal.custommobs.mobs.controllers.MobController;
 import me.histal.custommobs.mobs.enums.CreateMobResult;
+import me.histal.custommobs.mobs.events.AddCustomMobEvent;
+import me.histal.custommobs.mobs.events.SaveCustomMobEvent;
+import me.histal.custommobs.mobs.events.SpawnCustomMobEvent;
 import me.histal.custommobs.mobs.listeners.EntityListener;
 import org.bukkit.Location;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -96,7 +100,16 @@ public class MobsManager {
             plugin.getLogger().log(Level.WARNING, "Can not save mob to file");
             return CreateMobResult.FAIL_ADDING_TO_FILE;
         }
-        mobs.put(mobBuilder.getMobId(), mob);
+
+        AddCustomMobEvent event = new AddCustomMobEvent(mob);
+        if(event.isCancelled()){
+            return CreateMobResult.CANCELLED_BY_EVENT;
+        }
+        if(event.getMob() == null){
+            return CreateMobResult.FAILED_BUILD;
+        }
+
+        mobs.put(mobBuilder.getMobId(), event.getMob());
 
         return CreateMobResult.SUCCESSFUL_CREATE;
     }
@@ -107,21 +120,32 @@ public class MobsManager {
             plugin.getLogger().log(Level.WARNING, "Can not save mob to file because mobFile was not loaded");
             return false;
         }
+        if(mob == null){
+            return false;
+        }
+        SaveCustomMobEvent event = new SaveCustomMobEvent(mob);
+        if(event.isCancelled()){
+            return false;
+        }
+        if(event.getMob() == null){
+            return false;
+        }
+
         ConfigurationSection mobsSection = mobFile.getConfig().getConfigurationSection("");
 
         ConfigurationSection mobSection = mobsSection.createSection(mob.getId());
 
-        mobSection.set("type", mob.getEntityType().toString());
-        mobSection.set("name", mob.getName());
-        mobSection.set("health", mob.getHealth());
+        mobSection.set("type", event.getMob().getEntityType().toString());
+        mobSection.set("name", event.getMob().getName());
+        mobSection.set("health", event.getMob().getHealth());
 
         mobFile.asyncSave();
         return true;
 
     }
 
-    public void spawnMob(CustomMob mob, Location location){
-        if(mob == null){
+    public void spawnMob(CustomMob customMob, Location location){
+        if(customMob == null){
             return;
         }
         if(location == null){
@@ -130,21 +154,37 @@ public class MobsManager {
         if(!location.isWorldLoaded()){
             return;
         }
-        Entity entity = location.getWorld().spawnEntity(location, mob.getEntityType());
+        Entity entity = location.getWorld().spawnEntity(location, customMob.getEntityType());
 
-        updateMob(entity);
+        SpawnCustomMobEvent event = new SpawnCustomMobEvent(entity,customMob);
+        if(event.isCancelled()){
+            return;
+        }
+        updateMob(event.getEntity(), event.getMob());
+
     }
-
-
-    public void updateMob(Entity entity){
+    public void spawnMob(Entity entity){
         List<CustomMob> mobs  = mobController.getMobsByType(entity.getType());
         if(mobs.size() == 0){
             return;
         }
         CustomMob customMob = mobs.size() > 1 ? mobController.getRandomMob(mobs) : mobs.get(0);
 
+        SpawnCustomMobEvent event = new SpawnCustomMobEvent(entity,customMob);
+        if(event.isCancelled()){
+            return;
+        }
+        updateMob(event.getEntity(), event.getMob());
+    }
+
+    public void updateMob(Entity entity, CustomMob customMob){
+        if(entity == null || customMob == null){
+            return;
+        }
+
         LivingEntity livingEntity = (LivingEntity) entity;
-        livingEntity.setMaxHealth(customMob.getHealth());
+        livingEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(customMob.getHealth());
+        livingEntity.setHealth(customMob.getHealth());
         livingEntity.setCustomNameVisible(true);
         livingEntity.setCustomName(customMob.getName());
 
