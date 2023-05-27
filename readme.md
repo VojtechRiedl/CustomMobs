@@ -63,6 +63,19 @@ zombie-king:
 
 <h2>API</h2>
 
+<h3>Get a user</h3>
+
+```JAVA
+
+public class ExamplePlugin extends JavaPlugin {
+
+    public void example() {
+        // get a user by name
+        CustomMobs.getInstance().getUserManager().getUser("player_name");
+    }
+}
+```
+
 <h3>Creating a new custom mob</h3>
 
 ```JAVA
@@ -133,11 +146,6 @@ public class ExamplePlugin extends JavaPlugin {
 <h3>Events</h3>
 
 ```JAVA
-
-import me.histal.custommobs.mobs.events.AddCustomMobEvent;
-import me.histal.custommobs.mobs.events.SpawnCustomMobEvent;
-import org.bukkit.event.EventHandler;
-
 public class ExampleListener implements Listener {
 
     @EventHandler
