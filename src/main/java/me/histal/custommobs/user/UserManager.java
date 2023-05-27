@@ -1,6 +1,7 @@
 package me.histal.custommobs.user;
 
 import me.histal.custommobs.CustomMobs;
+import me.histal.custommobs.user.listeners.LoginListener;
 
 import java.util.HashMap;
 
@@ -13,6 +14,8 @@ public class UserManager {
     public UserManager(){
         this.plugin = CustomMobs.getInstance();
         loadData();
+
+        plugin.getServer().getPluginManager().registerEvents(new LoginListener(),plugin);
     }
 
     public void loadData(){

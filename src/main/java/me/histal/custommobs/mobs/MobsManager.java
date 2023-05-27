@@ -1,12 +1,26 @@
 package me.histal.custommobs.mobs;
 
+import com.sun.source.doctree.AttributeTree;
 import me.histal.custommobs.CustomMobs;
+import me.histal.custommobs.Utils;
 import me.histal.custommobs.config.ConfigYmlFile;
+import me.histal.custommobs.mobs.commands.CustomMobsCommand;
+import me.histal.custommobs.mobs.controllers.MobController;
 import me.histal.custommobs.mobs.enums.CreateMobResult;
+import me.histal.custommobs.mobs.listeners.EntityListener;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Cat;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.entity.EntityDropItemEvent;
+import org.bukkit.inventory.EntityEquipment;
+import org.bukkit.metadata.FixedMetadataValue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 
 public class MobsManager {
@@ -14,9 +28,15 @@ public class MobsManager {
     private CustomMobs plugin;
     private ConfigYmlFile mobFile;
     private HashMap<String, CustomMob> mobs;
+
+    private MobController mobController;
     public MobsManager() {
         this.plugin = CustomMobs.getInstance();
+        this.mobController = new MobController();
         loadData();
+
+        plugin.getServer().getPluginManager().registerEvents(new EntityListener(), plugin);
+        plugin.getCommand("custommobs").setExecutor(new CustomMobsCommand());
     }
 
     public void loadData() {
@@ -107,8 +127,54 @@ public class MobsManager {
 
     }
 
+    public void spawnMob(Entity entity){
+        List<CustomMob> mobs  = mobController.getMobsByType(entity.getType());
+        if(mobs.size() == 0){
+            System.out.println("No custom mob found for " + entity.getType());
+            return;
+        }
+        CustomMob customMob = mobs.size() > 1 ? mobController.getRandomMob(mobs) : mobs.get(0);
+
+        LivingEntity livingEntity = (LivingEntity) entity;
+        livingEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(customMob.getHealth());
+        livingEntity.setCustomNameVisible(true);
+        livingEntity.setCustomName(customMob.getName());
+
+        livingEntity.setMetadata("custom-mob", new FixedMetadataValue(plugin, customMob.getId()));
+
+        if(!(customMob instanceof CustomMobWithItem)) {
+            return;
+        }
+
+        CustomMobWithItem customMobWithItem = (CustomMobWithItem) customMob;
+        EntityEquipment equipment = livingEntity.getEquipment();
+        if(equipment == null) {
+            return;
+        }
+
+        equipment.setItemInMainHand(customMobWithItem.getDropAsItem());
+    }
+
+
+    public boolean isCustomMob(Entity entity){
+        return entity.hasMetadata("custom-mob");
+    }
+
+
+    public CustomMob getMob(String mobId) {
+        return mobs.get(mobId);
+    }
+
+    public List<CustomMob> getMobs() {
+        return new ArrayList<>(mobs.values());
+    }
+
 
     public boolean existMob(String mobId) {
         return mobs.containsKey(mobId);
+    }
+
+    public MobController getMobController() {
+        return mobController;
     }
 }
