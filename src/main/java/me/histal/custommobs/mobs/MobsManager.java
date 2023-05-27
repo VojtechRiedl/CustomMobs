@@ -75,7 +75,7 @@ public class MobsManager {
                 if(mob == null) {
                     continue;
                 }
-                mobs.put(mobId,mob);
+                registerMob(mob);
                 plugin.getLogger().log(Level.INFO, "Loaded mob " + mobId);
                 continue;
             }
@@ -88,7 +88,7 @@ public class MobsManager {
             if(mob == null) {
                 continue;
             }
-            mobs.put(mobId, mob);
+            registerMob(mob);
             plugin.getLogger().log(Level.INFO, "Loaded mob " + mobId);
         }
 
@@ -119,8 +119,7 @@ public class MobsManager {
         if(event.getMob() == null){
             return CreateMobResult.FAILED_BUILD;
         }
-
-        mobs.put(mobBuilder.getMobId(), event.getMob());
+        registerMob(event.getMob());
 
         return CreateMobResult.SUCCESSFUL_CREATE;
     }
@@ -240,6 +239,29 @@ public class MobsManager {
         return entity.hasMetadata("custom-mob");
     }
 
+    /**
+     * get the custom mob of the given entity
+     * @param entity the entity to get the custom mob of
+     * @return the custom mob of the given entity, return null if the entity is not a custom mob
+     */
+    public CustomMob getMob(Entity entity){
+        if(!isCustomMob(entity)){
+            return null;
+        }
+        String mobId = entity.getMetadata("custom-mob").get(0).asString();
+        return getMob(mobId);
+    }
+
+    /**
+     * register a custom mob into plugin
+     * @param mob the custom mob to register
+     */
+    public void registerMob(CustomMob mob) {
+        if(mob == null) {
+            return;
+        }
+        mobs.put(mob.getId(), mob);
+    }
 
     public CustomMob getMob(String mobId) {
         return mobs.get(mobId);
