@@ -1,5 +1,7 @@
 package me.histal.custommobs;
 
+import org.bukkit.ChatColor;
+
 public class Utils {
 
     public static Double convertToDouble(String string) {
@@ -12,4 +14,11 @@ public class Utils {
         return null;
     }
 
+    public static boolean calculateChance(float chance){
+        return Math.random() * 100 <= chance;
+    }
+
+    public static String colorize(String input){
+        return ChatColor.translateAlternateColorCodes('&', input);
+    }
 }
