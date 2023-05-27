@@ -81,7 +81,7 @@ public class MobsManager {
                 continue;
             }
             mobs.put(mobId, mob);
-
+            plugin.getLogger().log(Level.INFO, "Loaded mob " + mobId);
         }
 
     }
