@@ -8,7 +8,10 @@ import org.bukkit.event.HandlerList;
 public class SaveCustomMobEvent extends Event implements Cancellable {
     private CustomMob mob;
     private boolean cancelled;
-
+    /**
+     * This event is called when a custom mob is saved into file
+     * @param mob The custom mob that is being saved
+     */
     public SaveCustomMobEvent(CustomMob mob) {
         this.mob = mob;
     }

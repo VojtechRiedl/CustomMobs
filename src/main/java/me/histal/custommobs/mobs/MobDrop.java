@@ -10,7 +10,12 @@ public class MobDrop {
     Material material;
     String displayName;
     float dropChance;
-
+    /**
+     * This class store data about custom mob drops
+     * @param material The material of the drop
+     * @param displayName The display name of the drop
+     * @param dropChance The drop chance of the drop
+     */
     public MobDrop(Material material, String displayName, float dropChance) {
         this.material = material;
         this.displayName = Utils.colorize(displayName);
@@ -28,7 +33,10 @@ public class MobDrop {
     public float getDropChance() {
         return dropChance;
     }
-
+    /**
+     * This method returns the drop as an item
+     * @return The drop built as an item
+     */
     public ItemStack getItem(){
         ItemStack item = new ItemStack(material);
         ItemMeta itemMeta = item.getItemMeta();

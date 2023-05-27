@@ -23,7 +23,7 @@ public class MobReloadSubCommand implements SubCommand {
             sender.sendMessage("§aUsage §8-> " + getSyntax());
         }
 
-
+        // If the sender is not a player, reload the config
         if(!(sender instanceof Player)){
             plugin.getConfigurationManager().reload();
             sender.sendMessage("Successfully reloaded");
@@ -31,11 +31,12 @@ public class MobReloadSubCommand implements SubCommand {
         }
 
         Player player = (Player) sender;
-
+        // If the player does not have permission to reload the config, send them a message
         if(!player.hasPermission("custommobs.reload")){
             player.sendMessage("§cYou don't have permission to use this command");
             return;
         }
+        // Reload the config
         plugin.getConfigurationManager().reload();
         player.sendMessage("§aSuccessfully reloaded");
 

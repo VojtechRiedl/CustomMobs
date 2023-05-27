@@ -8,11 +8,13 @@ import org.bukkit.event.HandlerList;
 public class AddCustomMobEvent extends Event implements Cancellable {
 
     private CustomMob mob;
+    /**
+     * This event is called when a custom mob is added into mobs
+     * @param mob The custom mob that is being added
+     */
     public AddCustomMobEvent(CustomMob mob) {
         this.mob = mob;
     }
-
-
 
     @Override
     public boolean isCancelled() {

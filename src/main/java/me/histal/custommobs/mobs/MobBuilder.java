@@ -98,7 +98,12 @@ public class MobBuilder {
     private double health;
     private MobDrop itemInHand;
     private CustomMobs plugin;
-
+    /**
+     * This class is used to create custom mobs
+     * @param displayName The name of the custom mob
+     * @param type The entity type of the custom mob
+     * @param health The health of the custom mob
+     */
     public MobBuilder(String displayName,String type, double health){
         this.plugin = CustomMobs.getInstance();
         this.type = getMobEntityTypeFromString(type);
@@ -106,6 +111,13 @@ public class MobBuilder {
         this.mobId = getMobIdFromName(displayName);
         this.health = health;
     }
+    /**
+     * This class is used to create custom mobs
+     * @param mobId The id of the custom mob
+     * @param displayName The name of the custom mob
+     * @param type The entity type of the custom mob
+     * @param health The health of the custom mob
+     */
     public MobBuilder(String mobId,String displayName,String type, double health){
         this.plugin = CustomMobs.getInstance();
         this.type = getMobEntityTypeFromString(type);
@@ -115,7 +127,10 @@ public class MobBuilder {
     }
 
 
-
+    /**
+     * this method builds the mob and returns it as a CustomMob
+     * @return CustomMob
+     */
     public CustomMob build(){
         if(type == null){
             plugin.getLogger().log(Level.SEVERE, "Can not build mob: " + mobId + " because type is null");
@@ -136,6 +151,12 @@ public class MobBuilder {
         return new CustomMob(mobId,type,name, health);
     }
 
+    /**
+     * Creates a drop for the mob to drop when killed by a player
+     * @param displayName The name of the custom mob
+     * @param material The material of the item
+     * @param dropChance The chance of the item dropping
+     */
     public void createMobDrop(String displayName, String material, float dropChance) {
         Material itemMaterial = Material.getMaterial(material);
         if(itemMaterial == null){
@@ -173,7 +194,11 @@ public class MobBuilder {
     public void setType(EntityType type) {
         this.type = type;
     }
-
+    /**
+     * This method gets the entity type from the string
+     * @param type The entity type as a string
+     * @return The entity type
+     */
     public EntityType getMobEntityTypeFromString(String type){
 
         for (EntityType entityType : possibleTypes){
@@ -185,7 +210,11 @@ public class MobBuilder {
         plugin.getLogger().log(Level.WARNING, "Can not find entity type: " + type);
         return null;
     }
-
+    /**
+     * This method gets the mob id from the mob name
+     * @param name The name of the custom mob
+     * @return The mob id
+     */
     public String getMobIdFromName(String name){
         String mobId = name.toLowerCase().replace(" ", "-");
         if(plugin.getMobsManager().existMob(mobId)){

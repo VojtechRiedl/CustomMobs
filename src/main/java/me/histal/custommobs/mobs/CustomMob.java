@@ -9,7 +9,13 @@ public class CustomMob {
     EntityType entityType;
     String name;
     double health;
-
+    /**
+     * This class store data about custom mobs
+     * @param id The id of the custom mob
+     * @param entityType The entity type of the custom mob
+     * @param name The name of the custom mob
+     * @param health The health of the custom mob
+     */
     public CustomMob(String id, EntityType entityType, String name, double health) {
         this.id = id;
         this.entityType = entityType;

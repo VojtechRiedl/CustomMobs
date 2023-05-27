@@ -20,7 +20,11 @@ public class MobAddSubCommand implements SubCommand {
     public String getSyntax() {
         return "§e/custommobs add [entity_type] [health] [display_name]";
     }
-
+    /**
+     * /custommobs add zombie 20 Zombie
+     * @param sender The sender of the command
+     * @param args The arguments of the command
+     */
     @Override
     public void execute(CommandSender sender, String[] args) {
         if(!(sender instanceof Player)){
@@ -38,6 +42,7 @@ public class MobAddSubCommand implements SubCommand {
             player.sendMessage("§cInvalid health");
             return;
         }
+        // Get the display name of the mob by joining the rest of the arguments
         String displayName = Arrays.stream(args).skip(3).collect(Collectors.joining(" "));
 
         CreateMobResult result = plugin.getMobsManager().createNewMob(displayName, entityType, health);

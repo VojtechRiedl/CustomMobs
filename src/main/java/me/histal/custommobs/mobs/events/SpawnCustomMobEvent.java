@@ -12,8 +12,15 @@ public class SpawnCustomMobEvent extends Event implements Cancellable {
     private Entity entity;
     private boolean cancelled;
 
+
+    /**
+     * This event is called when a custom mob is spawned
+     * @param entity The entity that is being spawned
+     * @param mob The custom mob that is being spawned as entity
+     */
     public SpawnCustomMobEvent(Entity entity,CustomMob mob) {
         this.mob = mob;
+        this.entity = entity;
     }
 
     public CustomMob getMob() {

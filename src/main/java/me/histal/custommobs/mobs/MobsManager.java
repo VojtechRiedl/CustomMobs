@@ -38,6 +38,10 @@ public class MobsManager {
         plugin.getCommand("custommobs").setExecutor(new CustomMobsCommand());
     }
 
+    /**
+     * load all custom mobs from custom-mobs.yml file and store them in a HashMap with their id as key and CustomMob as value
+     * @see CustomMob
+     */
     public void loadData() {
         mobs = new HashMap<>();
 
@@ -90,6 +94,13 @@ public class MobsManager {
 
     }
 
+    /**
+     * create a new custom mob with the given parameters and save it to custom-mobs.yml file
+     * @param displayName the name of the mob
+     * @param type the type of the mob
+     * @param health the health of the mob
+     * @return CreateMobResult the result of the creation
+     */
     public CreateMobResult createNewMob(String displayName, String type, double health){
         MobBuilder mobBuilder = new MobBuilder(displayName, type, health);
         CustomMob mob = mobBuilder.build();
@@ -114,7 +125,11 @@ public class MobsManager {
         return CreateMobResult.SUCCESSFUL_CREATE;
     }
 
-
+    /**
+     * save the given mob to custom-mobs.yml file
+     * @param mob the mob to save to file
+     * @return true if the mob was saved to file, return false if mob is not successfully saved to file
+     */
     private boolean saveMobToFile(CustomMob mob){
         if(mobFile == null){
             plugin.getLogger().log(Level.WARNING, "Can not save mob to file because mobFile was not loaded");
@@ -144,6 +159,11 @@ public class MobsManager {
 
     }
 
+    /**
+     * spawn a custom mob at the given location
+     * @param customMob the custom mob to spawn
+     * @param location the location to spawn the mob at
+     */
     public void spawnMob(CustomMob customMob, Location location){
         if(customMob == null){
             return;
@@ -163,6 +183,11 @@ public class MobsManager {
         updateMob(event.getEntity(), event.getMob());
 
     }
+
+    /**
+     * spawn a custom mob on the given entity
+     * @param entity the entity to spawn the mob on
+     */
     public void spawnMob(Entity entity){
         List<CustomMob> mobs  = mobController.getMobsByType(entity.getType());
         if(mobs.size() == 0){
@@ -176,7 +201,11 @@ public class MobsManager {
         }
         updateMob(event.getEntity(), event.getMob());
     }
-
+    /**
+     * update the given entity to the custom mob
+     * @param entity the entity to update
+     * @param customMob the custom mob to update the entity to
+     */
     public void updateMob(Entity entity, CustomMob customMob){
         if(entity == null || customMob == null){
             return;
@@ -202,7 +231,11 @@ public class MobsManager {
         equipment.setItemInMainHand(customMobWithItem.getDropAsItem());
     }
 
-
+    /**
+     * check if the given entity is a custom mob
+     * @param entity the entity to check
+     * @return true if the entity is a custom mob, return false if the entity is not a custom mob
+     */
     public boolean isCustomMob(Entity entity){
         return entity.hasMetadata("custom-mob");
     }

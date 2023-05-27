@@ -6,7 +6,10 @@ public class User {
 
     Player player;
     int killedMobs;
-
+    /**
+     * This class stores data about users
+     * @param killedMobs The amount of mobs the user has killed
+     */
     public User(int killedMobs) {
         this.killedMobs = killedMobs;
     }

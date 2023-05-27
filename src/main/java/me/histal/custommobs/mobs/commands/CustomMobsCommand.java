@@ -34,7 +34,7 @@ public class CustomMobsCommand implements TabExecutor {
             sender.sendMessage("§cUsage: /custommobs <add|reload>");
             return true;
         }
-
+        // Execute the sub command if it exists
         for(SubCommand subCommand : subCommands) {
             if(subCommand.getName().equalsIgnoreCase(args[0])) {
                 subCommand.execute(sender, args);
