@@ -44,6 +44,9 @@ This file contains all the custom mobs that have been created. Each mob has a un
 
 <a href="https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html">List of entity types</a>
 
+**IMPORTANT!** <br>
+only support mob types that extend `LivingEntity` (e.g. `ZOMBIE`, `SKELETON`, `CREEPER`, etc.)
+
 <h3>Congifuration Example</h3>
 
 ```yaml
