@@ -7,6 +7,8 @@ import me.histal.custommobs.mobs.CustomMobWithItem;
 import me.histal.custommobs.mobs.MobBuilder;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 
@@ -60,6 +62,9 @@ public class MobController {
         };
         drops.remove(mobWithItem.getDropAsItem());
         return true;
+    }
+    public boolean hasKiller(LivingEntity entity){
+        return entity.getKiller() != null;
     }
 
 }

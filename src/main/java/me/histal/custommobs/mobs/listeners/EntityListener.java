@@ -1,7 +1,10 @@
 package me.histal.custommobs.mobs.listeners;
 
 import me.histal.custommobs.CustomMobs;
+import me.histal.custommobs.Utils;
+import me.histal.custommobs.user.User;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -26,8 +29,15 @@ public class EntityListener implements Listener {
         if(!plugin.getMobsManager().isCustomMob(entity)){
             return;
         };
-
         plugin.getMobsManager().getMobController().removeItemFromDrops(entity, e.getDrops());
+        if(!plugin.getMobsManager().getMobController().hasKiller(entity)) return;
+        Player killer = entity.getKiller();
+
+        User user = plugin.getUserManager().getUser(killer.getName());
+        if(user == null) return;
+        if(user.hasMaxAllowedKills()) return;
+        user.addKilledMob();
+        killer.sendMessage(Utils.colorize("&aZískáváš odměnu!"));
 
     }
 
@@ -38,7 +48,7 @@ public class EntityListener implements Listener {
             return;
         }
 
-        plugin.getMobsManager().spawnMob(e.getEntity());
+        plugin.getMobsManager().updateMob(e.getEntity());
 
     }
 

@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 public class User {
 
     Player player;
-
     int killedMobs;
 
     public User(int killedMobs) {
@@ -30,5 +29,11 @@ public class User {
 
     public void setKilledMobs(int killedMobs) {
         this.killedMobs = killedMobs;
+    }
+    public void addKilledMob(){
+        this.killedMobs++;
+    }
+    public boolean hasMaxAllowedKills(){
+        return this.killedMobs >= 10;
     }
 }
