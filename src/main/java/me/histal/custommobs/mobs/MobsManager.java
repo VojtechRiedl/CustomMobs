@@ -51,7 +51,7 @@ public class MobsManager {
 
         ConfigurationSection mobsSection = mobFile.getConfig().getConfigurationSection("");
         if(mobsSection == null) {
-            plugin.getLogger().log(Level.WARNING, "Can not load custom-mobs.yml");
+            plugin.getLogger().log(Level.WARNING, "Can not load from custom-mobs.yml");
             return;
         }
 
@@ -72,7 +72,7 @@ public class MobsManager {
                 if(mob == null) {
                     continue;
                 }
-                mobs.put(mobId, mobBuilder.build());
+                mobs.put(mobId,mob);
                 plugin.getLogger().log(Level.INFO, "Loaded mob " + mobId);
                 continue;
             }
@@ -85,9 +85,9 @@ public class MobsManager {
             if(mob == null) {
                 continue;
             }
-            mobs.put(mobId, mobBuilder.build());
+            mobs.put(mobId, mob);
 
-            plugin.getLogger().log(Level.INFO, "Loaded mob " + mobId);
+            plugin.getLogger().log(Level.INFO, "Loaded mob with item" + mobId);
 
         }
 
@@ -130,7 +130,6 @@ public class MobsManager {
     public void spawnMob(Entity entity){
         List<CustomMob> mobs  = mobController.getMobsByType(entity.getType());
         if(mobs.size() == 0){
-            System.out.println("No custom mob found for " + entity.getType());
             return;
         }
         CustomMob customMob = mobs.size() > 1 ? mobController.getRandomMob(mobs) : mobs.get(0);
@@ -151,7 +150,6 @@ public class MobsManager {
         if(equipment == null) {
             return;
         }
-
         equipment.setItemInMainHand(customMobWithItem.getDropAsItem());
     }
 

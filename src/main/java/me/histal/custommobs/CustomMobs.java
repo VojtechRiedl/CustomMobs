@@ -26,21 +26,12 @@ public final class CustomMobs extends JavaPlugin {
         this.userManager = new UserManager();
         this.mobsManager = new MobsManager();
 
-        registerCommand("custommobs", new CustomMobsCommand());
-
-        this.getServer().getPluginManager().registerEvents(new LoginListener(), this);
-
     }
 
     @Override
     public void onDisable() {
     }
 
-
-    public void registerCommand(String commandName,TabExecutor executor){
-        Objects.requireNonNull(getCommand(commandName)).setExecutor(executor);
-        Objects.requireNonNull(getCommand(commandName)).setTabCompleter(executor);
-    }
     public static CustomMobs getInstance() {
         return instance;
     }

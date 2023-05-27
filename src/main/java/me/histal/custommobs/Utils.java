@@ -2,8 +2,10 @@ package me.histal.custommobs;
 
 import org.bukkit.ChatColor;
 
-public class Utils {
+import java.util.Random;
 
+public class Utils {
+    static Random rd = new Random();
     public static Double convertToDouble(String string) {
 
         try {
@@ -15,7 +17,8 @@ public class Utils {
     }
 
     public static boolean calculateChance(float chance){
-        return Math.random() * 100 <= chance;
+        return rd.nextInt(100) < chance;
+
     }
 
     public static String colorize(String input){

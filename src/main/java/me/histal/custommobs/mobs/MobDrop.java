@@ -1,5 +1,6 @@
 package me.histal.custommobs.mobs;
 
+import me.histal.custommobs.Utils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -12,8 +13,8 @@ public class MobDrop {
 
     public MobDrop(Material material, String displayName, float dropChance) {
         this.material = material;
-        this.displayName = displayName;
-        this.dropChance = dropChance <= 0 ? 100.0f : dropChance;
+        this.displayName = Utils.colorize(displayName);
+        this.dropChance = dropChance <= 0.0 ? 100.0f : dropChance;
     }
 
     public Material getMaterial() {

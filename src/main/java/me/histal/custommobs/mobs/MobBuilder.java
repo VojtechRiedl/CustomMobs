@@ -130,7 +130,7 @@ public class MobBuilder {
             return null;
         }
         if(type == EntityType.SKELETON || type == EntityType.ZOMBIE){
-            new CustomMobWithItem(mobId,type,name, health, itemInHand);
+            return new CustomMobWithItem(mobId,type,name, health, itemInHand);
         }
 
         return new CustomMob(mobId,type,name, health);

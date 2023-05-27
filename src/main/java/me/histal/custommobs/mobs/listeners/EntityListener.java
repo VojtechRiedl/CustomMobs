@@ -34,7 +34,6 @@ public class EntityListener implements Listener {
     @EventHandler
     public void onEntitySpawn(EntitySpawnEvent e){
         if(e.isCancelled()) return;
-        System.out.println(e.getEntityType());
         if(!plugin.getMobsManager().getMobController().isAllowedMob(e.getEntityType())){
             return;
         }

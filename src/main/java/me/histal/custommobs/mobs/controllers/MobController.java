@@ -7,9 +7,8 @@ import me.histal.custommobs.mobs.CustomMobWithItem;
 import me.histal.custommobs.mobs.MobBuilder;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,6 +42,7 @@ public class MobController {
             return false;
         }
         String mobId = entity.getMetadata("custom-mob").get(0).asString();
+
         if(!plugin.getMobsManager().existMob(mobId)){
             return false;
         }
@@ -52,10 +52,12 @@ public class MobController {
         }
         CustomMobWithItem mobWithItem = (CustomMobWithItem) mob;
 
-        if(!Utils.calculateChance(mobWithItem.getMobDrop().getDropChance())){
-            return false;
+        if(Utils.calculateChance(mobWithItem.getMobDrop().getDropChance())){
+            if(!drops.contains(mobWithItem.getDropAsItem())){
+                drops.add(mobWithItem.getDropAsItem());
+            }
+            return true;
         };
-
         drops.remove(mobWithItem.getDropAsItem());
         return true;
     }

@@ -1,5 +1,6 @@
 package me.histal.custommobs.mobs;
 
+import me.histal.custommobs.Utils;
 import org.bukkit.entity.EntityType;
 
 public class CustomMob {
@@ -12,7 +13,7 @@ public class CustomMob {
     public CustomMob(String id, EntityType entityType, String name, double health) {
         this.id = id;
         this.entityType = entityType;
-        this.name = name;
+        this.name = Utils.colorize(name);
         this.health = health;
     }
 

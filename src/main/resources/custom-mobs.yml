@@ -5,4 +5,4 @@ example-mob:
   item-in-hand:
     material: DIAMOND_SWORD
     display-name: "&c&lExample Sword"
-    drop-chance: 0.5
+    drop-chance: 100.0

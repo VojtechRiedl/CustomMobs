@@ -1,6 +1,7 @@
 package me.histal.custommobs.mobs;
 
 import org.bukkit.entity.EntityType;
+import org.bukkit.inventory.ItemStack;
 
 public class CustomMobWithItem extends CustomMob{
 
@@ -17,5 +18,10 @@ public class CustomMobWithItem extends CustomMob{
 
     public void setMobDrop(MobDrop mobDrop) {
         this.mobDrop = mobDrop;
+    }
+
+
+    public ItemStack getDropAsItem(){
+        return mobDrop.getItem();
     }
 }
