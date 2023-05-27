@@ -45,7 +45,7 @@ public class MobAddSubCommand implements SubCommand {
         // Get the display name of the mob by joining the rest of the arguments
         String displayName = Arrays.stream(args).skip(3).collect(Collectors.joining(" "));
 
-        CreateMobResult result = plugin.getMobsManager().createNewMob(displayName, entityType, health);
+        CreateMobResult result = plugin.getMobsManager().addNewMob(displayName, entityType, health);
 
         if(result == CreateMobResult.SUCCESSFUL_CREATE){
             player.sendMessage("§aSuccessfully created mob");

@@ -101,7 +101,7 @@ public class MobsManager {
      * @param health the health of the mob
      * @return CreateMobResult the result of the creation
      */
-    public CreateMobResult createNewMob(String displayName, String type, double health){
+    public CreateMobResult addNewMob(String displayName, String type, double health){
         MobBuilder mobBuilder = new MobBuilder(displayName, type, health);
         CustomMob mob = mobBuilder.build();
         if(mob == null){
