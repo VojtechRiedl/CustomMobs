@@ -30,6 +30,8 @@ public class CustomMobWithItem extends CustomMob{
 
 
     public ItemStack getDropAsItem(){
+        if(mobDrop == null)
+            return null;
         return mobDrop.getItem();
     }
 }

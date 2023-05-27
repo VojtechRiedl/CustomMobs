@@ -144,7 +144,7 @@ public class MobBuilder {
             plugin.getLogger().log(Level.WARNING, "mob health is 0 or under 0");
             return null;
         }
-        if(type == EntityType.SKELETON || type == EntityType.ZOMBIE){
+        if(((type == EntityType.SKELETON || type == EntityType.ZOMBIE) && itemInHand != null)){
             return new CustomMobWithItem(mobId,type,name, health, itemInHand);
         }
 
