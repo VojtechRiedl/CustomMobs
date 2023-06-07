@@ -10,12 +10,11 @@ import java.io.IOException;
 import java.util.logging.Level;
 
 public class ConfigYmlFile {
-    File file;
-    FileConfiguration configuration;
-
-    CustomMobs plugin;
-    String name;
-    String folder;
+    private File file;
+    private FileConfiguration configuration;
+    private CustomMobs plugin;
+    private String name;
+    private String folder;
 
     /**
      * @param name The name of the file

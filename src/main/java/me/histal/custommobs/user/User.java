@@ -4,8 +4,8 @@ import org.bukkit.entity.Player;
 
 public class User {
 
-    Player player;
-    int killedMobs;
+    private Player player;
+    private int killedMobs;
     /**
      * This class stores data about users
      * @param killedMobs The amount of mobs the user has killed

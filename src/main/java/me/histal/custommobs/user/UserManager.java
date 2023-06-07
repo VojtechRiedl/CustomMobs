@@ -9,7 +9,7 @@ public class UserManager {
 
     private CustomMobs plugin;
 
-    HashMap<String, User> users;
+    private HashMap<String, User> users;
 
     public UserManager(){
         this.plugin = CustomMobs.getInstance();

@@ -5,10 +5,10 @@ import org.bukkit.entity.EntityType;
 
 public class CustomMob {
 
-    String id;
-    EntityType entityType;
-    String name;
-    double health;
+    private String id;
+    private EntityType entityType;
+    private String name;
+    private double health;
     /**
      * This class store data about custom mobs
      * @param id The id of the custom mob

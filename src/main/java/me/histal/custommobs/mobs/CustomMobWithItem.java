@@ -5,7 +5,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class CustomMobWithItem extends CustomMob{
 
-    MobDrop mobDrop;
+    private MobDrop mobDrop;
 
     /**
      * This class store data about custom mobs with item drops

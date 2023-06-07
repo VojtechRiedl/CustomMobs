@@ -7,9 +7,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class MobDrop {
 
-    Material material;
-    String displayName;
-    float dropChance;
+    private Material material;
+    private String displayName;
+    private float dropChance;
     /**
      * This class store data about custom mob drops
      * @param material The material of the drop
